@@ -1,0 +1,30 @@
+.subjects{
+    width: 100%;
+    background-color: rgb(53, 53, 53);
+    color: #fff;
+}
+.subject__top{
+    background-color: rgb(119, 119, 119);
+    height: 50px;
+    width: 100px;
+}
+.title{
+    background-color: rgb(53, 53, 53);
+    border: none;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 95%;
+    margin-top: auto;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }

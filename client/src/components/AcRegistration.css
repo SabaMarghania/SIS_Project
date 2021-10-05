@@ -1,0 +1,29 @@
+.acregistration{
+    width: 100%;
+    background-color: rgb(53, 53, 53);
+    color: #fff;
+}
+table{
+    width: 93%;
+}
+.Action{
+    text-align: center;
+    width: 250px;
+}
+.Action > span{
+    border: 1px solid gray;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.Action > span:hover{
+    background-color: rgb(68, 68, 68);
+}
+.acregistration__info{
+    padding: 8px;
+    border: 1px solid gray;
+}
+.acregistration__info >h3{
+    font-family: sans-serif;
+    color: rgb(201, 201, 201);
+}

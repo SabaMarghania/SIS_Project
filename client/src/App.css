@@ -1,0 +1,16 @@
+*{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
+.App__main{
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(53, 53, 53);
+  height:auto;
+}
+.App__content{
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
