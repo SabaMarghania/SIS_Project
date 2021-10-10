@@ -17,6 +17,7 @@ const authUser = async (req, res) => {
       username: user.username,
       token: generateToken(user._id),
       subjects:user.subjects,
+      role:user.role,
     });
     } else {
     res.status(401);
@@ -26,7 +27,7 @@ const authUser = async (req, res) => {
  }
 
   const registerUser = async (req, res) => {
-    const {username, email, password,pic,birth} = req.body;
+    const {role,username, email, password,pic,birth} = req.body;
     const subjects = []
     const userExists = await StudentSchema.findOne({ email });
     if (userExists) {
@@ -34,6 +35,7 @@ const authUser = async (req, res) => {
       throw new Error("User already exists");
     }
     const user = await StudentSchema.create({
+      role,
       username,
       email,
       password,
@@ -50,7 +52,8 @@ const authUser = async (req, res) => {
         birth: moment(user.birth).format('MMM Do, YYYY'),
         token: generateToken(user._id),
         subjects:user.subjects,
-      });
+        role:user.role,
+    });
     } else {
       res.status(404);
       throw new Error("User not found");

@@ -10,3 +10,19 @@ input[type=file]{
 .login__modal_body_cont input{
     margin-top: 15px;
 }
+.box{
+    width: 180px;
+    display: flex;
+    height: 30px;
+    font-size: 16px;
+}
+.register__type{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box > h4{
+    font-family: sans-serif;
+    font-weight: 400;
+}

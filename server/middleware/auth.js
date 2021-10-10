@@ -13,7 +13,7 @@ const protect = async (req, res, next) => {
       //decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      req.user = await StudentSchema.findById(decoded._id).select("-password");
+      req.user = await StudentSchema.findById(decoded.id).select("-password");
 
       next();
     } catch (error) {

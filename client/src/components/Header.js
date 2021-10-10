@@ -11,7 +11,10 @@ import {
   } from "react-router-dom";
   import {logout} from '../actions/userAction'
   import { useDispatch, useSelector } from "react-redux";
+  import axios from 'axios'
 function Header() {
+    const[student,setStudent]=useState([])
+
     const history = useHistory()
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
@@ -21,13 +24,22 @@ function Header() {
     };
 
 
- 
     useEffect(()=>{
+        let  flag = true
+        axios.get(`http://localhost:3001/student/${userInfo?._id}`, )
+            .then((res) => {
+                if (flag) {
+                 setStudent(res.data);
+                }
+            })
+       
         if(!userInfo){
             history.push('/')
         }
-    },[history,userInfo])
 
+        return () => flag = false
+    },[history,userInfo])
+    console.log(student)
     return (
         <div className='header'>
             <div className="header__left">
@@ -61,9 +73,9 @@ function Header() {
           
             <div className="header__profile">
                 <button onClick={logoutHandler} type='submit'>Logout</button>
-                <Avatar src={userInfo?.pic} />
+                <Avatar src={student?.pic} />
                 <div className="header__profile__info">
-                    <p>{userInfo?.username}</p>
+                    <p>{student?.username}</p>
                 </div>
             </div>
         </div>

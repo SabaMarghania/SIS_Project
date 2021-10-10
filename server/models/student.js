@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 
 
 const StudentSchema = mongoose.Schema({
- 
+   
     username:{
         type: String,
-        required: false
+        required: true
     },
     email: {
         type: String,
-        required: false
+        required: true
     },
-  
+    
     subjects:[{
         subject: {
             type: String,
@@ -36,9 +36,12 @@ const StudentSchema = mongoose.Schema({
         type: String,
 
     },
-    lecturer:{
+    role:{
         type:String,
     },
+    birth:{
+        type:String,
+    }
     
 });
 

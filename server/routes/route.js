@@ -8,12 +8,11 @@ const {
 } =require("../controllers/userCtrl");
 const Student = require("../models/student");
 const Subject = require("../models/subjects");
-
-
-
+const authPage = require('../middleware/pageauth')
+const parser = require('../middleware/cloudinary.config')
 router.post("/register",registerUser);
 router.post("/login", authUser)
-
+const moment = require('moment')
 
 //get all students data
 router.get('/getStudents', (req,res)=>{
@@ -46,8 +45,7 @@ router.get(`/students`, async (req, res) =>{
  
    
    })
-   
-
+ 
 router.get("/student/:id", async (req, res) =>{
     const subject = await Student.findById(req.params.id)
       if(!subject) {
@@ -104,5 +102,30 @@ router.get('/subject/:id', async(req,res)=>{
     res.status(200).send(category);
 })
 
+router.put('/updatePic/:id',parser.single("file"), (req,res)=>{
+    try{
+        Student.findById(req.params.id,(err,updatedPic)=>{
+            updatedPic.pic = req.body.file;
+            updatedPic.save();
+    })
+    }catch(err){
+         console.log(err);
+    }
+    res.status(200).send("Picture has been updated")
+})
+router.put('/editProfile/:id', (req,res)=>{
+    try{
+        Student.findById(req.params.id,(err,updatedProfile)=>{
+            updatedProfile.username = req.body.username;
+            updatedProfile.email = req.body.email;
+            updatedProfile.birth = moment(req.body.birth).format('MMM Do, YYYY');
+            updatedProfile.save();
+    })
+    }catch(err){
+         console.log(err);
+    }
+    res.status(200).send("Picture has been updated")
+
+  })
 
 module.exports = router   

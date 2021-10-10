@@ -14,6 +14,9 @@ import StaffRoom from './components/StaffRoom';
 import Login from './components/Login';
 import Register from './components/Register';
 import {  useSelector } from "react-redux";
+import StudentsPage from './components/StudentsPage';
+import Profile from './components/Profile';
+import Timetable from './components/Timetable';
 function App() {
 
     
@@ -24,6 +27,41 @@ function App() {
     <Router>
       <Switch>
 
+      <Route path="/timetable">
+          <Header/>
+          <div className="App__main">
+            <div className="App__content">
+              <Sidebar/>
+              <Timetable />
+            </div>
+          </div>
+          <Footer/>
+          
+        </Route>
+
+      <Route path="/profile">
+          <Header/>
+          <div className="App__main">
+            <div className="App__content">
+              <Sidebar/>
+              <Profile />
+            </div>
+          </div>
+          <Footer/>
+          
+        </Route>
+
+      <Route path="/student/:id">
+          <Header/>
+          <div className="App__main">
+            <div className="App__content">
+              <Sidebar/>
+              <StudentsPage />
+            </div>
+          </div>
+          <Footer/>
+          
+        </Route>
       <Route path="/staff">
           <Header/>
           <div className="App__main">

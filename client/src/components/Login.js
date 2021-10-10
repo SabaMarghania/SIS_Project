@@ -5,7 +5,7 @@ import {
   } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/userAction";
-
+import img from '../images/logo.jpg'
 function LoginPage({history}) {
  
     const [email, setEmail] = useState("");
@@ -38,6 +38,9 @@ function LoginPage({history}) {
             </div>
             <div className="loginpage__text">
                 <h1>Log in </h1>
+                <div className="loginpage__img">
+                  <img src={img} alt="" />
+                </div>
             </div>
             <form onSubmit={submitHandler}>
             <div className="loginpage__form">
@@ -59,7 +62,7 @@ function LoginPage({history}) {
             </div>
             </form>
             <div className="loginpage__signup">
-                    <p>Don't have an account? <Link to='/register' style={{color:'blue'}}>Sign up</Link> </p>
+                    <p>Don't have an account? <Link to='/register' style={{color:'gray'}}>Sign up</Link> </p>
             </div>
             </div>
        

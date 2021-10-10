@@ -27,7 +27,7 @@
     height: 50px;
     padding-left: 15px;
     font-size: 16px;
-    border: 1px solid rgb(212, 212, 212);
+    border: 1px solid rgb(129, 129, 129);
     outline: none;
     border-radius: 5px;
 }
@@ -54,6 +54,14 @@
 }
 .loginpage__signup p{
     color: rgb(29, 155, 240);
+}
+.loginpage__img{
+    margin-top: 30px;
+}
+.loginpage__img > img{
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
 }
 .login__modal_body{
  

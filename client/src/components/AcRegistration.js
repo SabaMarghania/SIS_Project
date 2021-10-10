@@ -23,7 +23,7 @@ function AcRegistration() {
            })
            setTimeout(()=>{
              setLoad(false)
-           })
+           },700)
       
        return () => flag = false
    }, [load])
@@ -70,6 +70,27 @@ return (
     <td>5.0 / -</td>
      <td className="Action">
          <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Computer Skills","Maria Anders")}>Choose  your subject</span>
+     </td>
+  </tr>
+  <tr>
+    <td>Computer Architect</td>
+    <td>5.0 / -</td>
+     <td className="Action">
+         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Computer Architect","San Paul")}>Choose  your subject</span>
+     </td>
+  </tr>
+  <tr>
+    <td>Python</td>
+    <td>5.0 / -</td>
+     <td className="Action">
+         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Python","John Anderson")}>Choose  your subject</span>
+     </td>
+  </tr>
+  <tr>
+    <td>HTML and CSS</td>
+    <td>5.0 / -</td>
+     <td className="Action">
+         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"HTML and CSS","Connor Armstrong")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
@@ -129,7 +150,13 @@ return (
          <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Calculus II","George Smith")}>Choose  your subject</span>
      </td>
   </tr>
-
+  <tr>
+    <td>Linear Algebra  </td>
+    <td>5.0 / -</td>
+     <td className="Action">
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Linear Algebra ","George Adams")}>Choose  your subject</span>
+     </td>
+  </tr>
   <tr>
     <th className='title'>Minor Courses</th>
   </tr>

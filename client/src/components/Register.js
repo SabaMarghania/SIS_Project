@@ -11,6 +11,7 @@ import {
 function Register() {
 
     //reg
+    const [role, setRole] = useState("");
     const [birth, setBirth] = useState("");
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -31,19 +32,14 @@ function Register() {
 
   
 const postDetails = (pics) => {
-    if (
-      pics ===
-      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-    ) {
-      return setPicMessage("Please Select an Image");
-    }
+  
     setPicMessage(null);
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+    if (pics.type === "image/jpeg" || pics.type === "image/png"|| pics.type === "image/jpg") {
       const data = new FormData();
       data.append("file", pics);
-      data.append("upload_preset", "notezipper");
-      data.append("cloud_name", "piyushproj");
-      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+      data.append("upload_preset", "xtxk3b23");
+      data.append("cloud_name", "dgnirmthd");
+      fetch("https://api.cloudinary.com/v1_1/dgnirmthd/image/upload", {
         method: "post",
         body: data,
       })
@@ -70,9 +66,9 @@ const postDetails = (pics) => {
 
                 if (password !== confirmpassword) {
                     setMessage("Passwords do not match");
-                } else dispatch(register(username,email, password, pic, birth));
+                } else dispatch(register(role,username,email, password, pic, birth));
             };
-     
+     console.log(role)
 
     return (
         <div className='register'>
@@ -85,14 +81,19 @@ const postDetails = (pics) => {
             <div className="login__modal_body_cont">
                 <input name='username'  onChange={(e) => setUsername(e.target.value)} type="text" placeholder='username' />
                 <input name='email'  onChange={(e) => setEmail(e.target.value)} type="email" placeholder='Email' />
+                <div className="register__type">
+                <select onChange={(e) => setRole(e.target.value)}  className='box'>
+                  <option value="">None</option>
+                  <option value="Student">Student</option>
+                  <option value="Lecturer">Lecturer</option>
+                </select>
+                </div>
                 <input name='password' onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Password' />
                 <input name='confirmPassword'onChange={(e) => setConfirmPassword(e.target.value)} type="password" placeholder='Confirm Password' />
                 <input type="file" onChange={(e) => postDetails(e.target.files[0])}   />
                    
-                    <h4>Date of birth</h4>
-                    <p>This will not be shown publicly. Confirm your own age,
-                        even if this account is for a business, a pet, or something else.</p>
-                <input onChange={(e)=>setBirth(e.target.value)}  type="date" placeholder='Choice 3' />
+                 
+                <input onChange={(e)=>setBirth(e.target.value)}  type="date"  />
             </div>
             <div className="login__modal_button">
                 <button onClick={submitHandler} type='submit'>Sign up</button>
