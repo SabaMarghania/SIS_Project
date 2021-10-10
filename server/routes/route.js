@@ -57,19 +57,19 @@ router.get("/student/:id", async (req, res) =>{
   
 
 router.post('/subject',async (req, res) =>{
-    
+    console.log(req.body.schedule)
     const subjectDb = new Subject({
 
         subject:req.body.subject,
         lecturer:req.body.lecturer,
         subjectCredit:req.body.subjectCredit,
-        userId:req.body.userId
-          
+        userId:req.body.userId,
+        schedule:req.body.schedule,
       });
  
     Student.findOneAndUpdate(
         { _id: req.body.userId },
-        {$push: {"subjects": {subject: req.body.subject, lecturer:req.body.lecturer,subjectCredit:req.body.subjectCredit,userId:req.body.userId}}},
+        {$push: {"subjects": {subject: req.body.subject, lecturer:req.body.lecturer,subjectCredit:req.body.subjectCredit,userId:req.body.userId,schedule:req.body.schedule}}},
         {safe: true, upsert: true},
         function(err, model) {
             console.log(err);
@@ -114,6 +114,31 @@ router.put('/updatePic/:id',parser.single("file"), (req,res)=>{
     res.status(200).send("Picture has been updated")
 })
 router.put('/editProfile/:id', (req,res)=>{
+    try{
+        Student.findById(req.params.id,(err,updatedProfile)=>{
+            updatedProfile.username = req.body.username;
+            updatedProfile.email = req.body.email;
+            updatedProfile.birth = moment(req.body.birth).format('MMM Do, YYYY');
+            updatedProfile.save();
+    })
+    }catch(err){
+         console.log(err);
+    }
+    res.status(200).send("Picture has been updated")
+
+  })
+  router.put('/updateStudentsPic/:id', parser.single("file"), (req,res)=>{
+    try{
+        Student.findById(req.params.id,(err,updatedPic)=>{
+            updatedPic.pic = req.body.file;
+            updatedPic.save();
+    })
+    }catch(err){
+         console.log(err);
+    }
+    res.status(200).send("Picture has been updated")
+})
+  router.put('/editStudentsProfile/:id', (req,res)=>{
     try{
         Student.findById(req.params.id,(err,updatedProfile)=>{
             updatedProfile.username = req.body.username;

@@ -28,21 +28,22 @@ function AcRegistration() {
        return () => flag = false
    }, [load])
 
-const itemAdd = async(subjectCredit,subject,lecturers)=>{
+const itemAdd = async(subjectCredit,subject,lecturers,schedule)=>{
   setLoad(true)
   if(credit <= 4){
     setCredit(0)
   }
   console.log(userInfo?._id)
 
-    console.log(subject,lecturers,subjectCredit)
+    console.log(subject,lecturers,subjectCredit,schedule)
     setCredit(credit - subjectCredit)
   
   await axios.post("http://localhost:3001/subject",{
     userId:userInfo?._id,
     subject:subject,
     lecturer:lecturers,
-    subjectCredit,subjectCredit,
+    subjectCredit:subjectCredit,
+    schedule:schedule
   })
 
 }
@@ -69,77 +70,77 @@ return (
     <td>Computer skills</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Computer Skills","Maria Anders")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Computer Skills","Maria Anders","Monday, From 10AM to 1PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>Computer Architect</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Computer Architect","San Paul")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Computer Architect","San Paul","Tuesday, From 9AM to 12PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>Python</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Python","John Anderson")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"Python","John Anderson","Wednesday, From 1PM to 4PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>HTML and CSS</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"HTML and CSS","Connor Armstrong")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=   6 ? "none":'block')}} onClick={()=>itemAdd( 5,"HTML and CSS","Connor Armstrong","Thursday, From 1PM to 4PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>Academic writing</td>
     <td>4.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}} onClick={()=>itemAdd( 4,"Academic writing","Francisco Chang")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}} onClick={()=>itemAdd( 4,"Academic writing","Francisco Chang","Friday, From 4PM to 7PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>English language B1.1</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"English language B1.1","Roland Mendel")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"English language B1.1","Roland Mendel","Saturday, From 4PM to 7PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>English language B1.2</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"English language B1.2","Roland Mendel")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"English language B1.2","Roland Mendel","Monday, From 2PM 5PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>English language B2.1</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"English language B2.1","Roland Mendel")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"English language B2.1","Roland Mendel","Tuesday, From 8AM to 11AM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>English language B2.2 </td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"English language B2.2","Roland Mendel")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"English language B2.2","Roland Mendel","Wednesday, From 4PM to 7PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>English language 5 (Field) </td>
     <td>6.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 6,"English language 5","Roland Mendel")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 6,"English language 5","Roland Mendel","Thursday, From 10AM to 1PM")}>Choose  your subject</span>
      </td>
   </tr>  
   <tr>
     <td>Calculus I</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Calculus I","George Smith")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Calculus I","George Smith","Friday, From 10AM to 1PM")}>Choose  your subject</span>
      </td>
   </tr>
 
@@ -147,14 +148,14 @@ return (
     <td>Calculus II </td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Calculus II","George Smith")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Calculus II","George Smith","Friday, From 7PM to 10PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>Linear Algebra  </td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Linear Algebra ","George Adams")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Linear Algebra ","George Adams","Monday, From 4PM to 7PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
@@ -169,42 +170,42 @@ return (
     <td>AutoCad</td>
     <td>6.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 6,"AutoCad","Alfreds Futterkiste	")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 6,"AutoCad","Alfreds Futterkiste","Tuesday, From 10AM to 1PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>PhotoShop</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"PhotoShop","Ernst Handel")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"PhotoShop","Ernst Handel","Tuesday, From 2PM to 5PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>Physics</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Physics","Alfreds Futterkiste")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,"Physics","Alfreds Futterkiste","Thursday, From 11AM 2PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>.NET Programming</td>
     <td>5.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,".NET Programming","Bacchus Winecellars")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 5,".NET Programming","Bacchus Winecellars","Friday, From 2PM to 5PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>.NET Programming 2</td>
     <td>4.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 4,".NET Programming 2","Bacchus Winecellars")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 4,".NET Programming 2","Bacchus Winecellars","Friday, From 10AM to 1PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>ArchiCad</td>
     <td>4.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 4,"ArchiCad","Francisco Chang")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 4,"ArchiCad","Francisco Chang","Saturday, From 1PM to 3PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
@@ -219,14 +220,14 @@ return (
     <td>Practice</td>
     <td>10.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 10,"Practice","Francisco Chang,Ernst Handel")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 10,"Practice","Francisco Chang,Ernst Handel","Saturday, From 2PM to 5PM")}>Choose  your subject</span>
      </td>
   </tr>
   <tr>
     <td>Bachelor Final Project</td>
     <td>15.0 / -</td>
      <td className="Action">
-         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 15,"Bachelor Final Project","Alfreds Futterkiste,Francisco Chang")}>Choose  your subject</span>
+         <span style={{display: (subject?.subjects?.length >=  6 ? "none":'block')}}  onClick={()=>itemAdd( 15,"Bachelor Final Project","Alfreds Futterkiste,Francisco Chang","Monday, From 1PM to 4PM")}>Choose  your subject</span>
      </td>
   </tr>
 

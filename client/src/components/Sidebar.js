@@ -15,10 +15,10 @@ function Sidebar() {
                 <p>NAVIGATION</p>
                 <div className="sidebar__nav__container">
 
-                <Link style={{textDecoration:'none'}} to='/timetable'>
+                <Link style={{textDecoration:'none'}} to='/Schedules'>
                 <div className="sidebar__nav__box">
                     <DateRangeOutlinedIcon style={{color:'rgb(131, 131, 131)',fontSize:'28px'}} />
-                    <h3>Timetable</h3>
+                    <h3>Schedules</h3>
                 </div>
                 </Link>
 

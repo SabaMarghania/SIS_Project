@@ -1,11 +1,11 @@
 .staffroom{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
     width: 100%;
     height: 200px;
 }
-
+.staffroom__container{
+    display: flex;
+    flex-wrap: wrap;
+}
 .staffroom__students__box{
     cursor: pointer;
     display: flex;
@@ -34,6 +34,12 @@
     width: 100%;
     margin: 40px auto;
     font-family: sans-serif;
+    text-align: center;
+}
+
+.staffroom__title > h1{
+    font-family: sans-serif;
+    color: rgb(255, 255, 255);
     text-align: center;
 }
 .auth > h1{

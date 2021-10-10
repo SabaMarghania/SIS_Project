@@ -118,7 +118,7 @@ function Profile() {
         return (
             <div className='profile'>
                 <div className="profile__profile">
-                    <Avatar style={{width:'180px',height:'180px'}} src={student?.pic} />
+                    <Avatar style={{width:'200px',height:'200px',border:"2px solid rgb(61, 61, 214)"}} src={student?.pic} />
                         <div className="profile__info">
                             <h1>{student?.username}</h1>
                             <h2>{student?.email}</h2>

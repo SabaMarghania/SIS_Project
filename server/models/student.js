@@ -25,7 +25,10 @@ const StudentSchema = mongoose.Schema({
             type:Number,
             default:30
         },
-        userId:{ type:String }
+        userId:{ type:String },
+        schedule:{
+            type:String,
+        }
     }],
     password: {
         type: String,

@@ -13,9 +13,10 @@ const SubjectSchema = mongoose.Schema({
     },
     userId:{ 
         type:String,
-      
+    },
+    schedule:{
+        type:String,
     }
-     
 });
 
 const Subject = mongoose.model("Subjects",SubjectSchema);

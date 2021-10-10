@@ -1,0 +1,14 @@
+.timetable{
+    width: 100%;
+}
+.timetable__title{
+    text-align: center;
+    font-family: sans-serif;
+    color: #fff;
+    margin: 5px;
+}
+.text{
+    color: #fff;
+    border: 1px solid gray;
+    padding: 8px;
+}

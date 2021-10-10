@@ -12,11 +12,53 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Avatar from '@material-ui/core/Avatar';
 import './StudentsPage.css'
+import Modal from '@material-ui/core/Modal';
+
+
 function StudentsPage() {
     const[student,setStudent]=useState([])
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
     let{id}=useParams()
+    const [update, setUpdate] = useState(false);
+    const[username,setUsername] = useState('')
+    const [open, setOpen] = useState(false);
+    const[email,setEmail] = useState('')
+    const[birthdate,setBirthdate] = useState('')
+    const [pic, setPic] = useState(
+      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+    );
+    const handleOpen = () => {
+        setOpen(true);
+      };
+      const handleClose = () => {
+        setOpen(false);
+      };
+
+      const postDetails = (pics) => {
+
+        if (pics.type === "image/jpeg" || pics.type === "image/png"|| pics.type === "image/jpg") {
+          const data = new FormData();
+          data.append("file", pics);
+          data.append("upload_preset", "xtxk3b23");
+          data.append("cloud_name", "dgnirmthd");
+          fetch("https://api.cloudinary.com/v1_1/dgnirmthd/image/upload", {
+            method: "put",
+            body: data,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              setPic(data.url.toString());
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } 
+      };
+    
+
+
+
     useEffect(() => {
     
       let  flag = true
@@ -30,15 +72,64 @@ function StudentsPage() {
       
        return () => flag = false
    }, [])
+   const updateProfile = async () =>{
+    setUpdate(true)
+    await axios.put(`http://localhost:3001/editStudentsProfile/${id}`,{
+       username:username,
+       email:email,
+       birth:birthdate,
+     })
+     setTimeout(()=>{
+      window.location.reload()
+
+  },1700)
+   }
+   const updatePic = async ()  =>{
+    const formData = new FormData();
+    formData.append("file", pic)
+    await axios.put(`http://localhost:3001/updateStudentsPic/${id}`,formData)
+    console.log(pic)
+    setTimeout(()=>{
+      window.location.reload()
+
+  },1200) 
+  }
+  console.log("students", birthdate)
+   const body = (
+    <div className="profile__modal_body">
+        <div className="profile__modal__title">
+       {update && <h1 style={{color:'rgb(117, 117, 117)'}}>Profile has been updated</h1>}
+            <h2>Edit profile</h2>
+        </div>
+        <div className="profile__modal_avatar">
+             <Avatar src={student?.pic} style={{width:'100px',height:'100px'}} />
+             <input onChange={(e) => postDetails(e.target.files[0])}   name='file' type="file" />
+            <button onClick={updatePic} type='submit' >Save</button>
+        </div>
+        <div className="profile__modal_body_cont">
+            <input onChange={(e)=>{setUsername(e.target.value)}}  type="text" placeholder='Name' />
+            <input onChange={(e)=>{setEmail(e.target.value)}} type="email" placeholder='Email' />
+            <input onChange={(e)=>{setBirthdate(e.target.value)}} type="date"  />
+        </div>
+        <div className="profile__modal__birthdate">
+            <p>Birth date</p>
+            <h3>{student?.birth}</h3>
+        </div>
+        <div className="profile__modal_button">
+            <button onClick={updateProfile} type='submit' >Save</button>
+        </div>
    
+    </div>
+  );
     return (
         <div className='studentsPage'>
             <div className="studentsPage__profile">
-                <Avatar style={{width:'180px',height:'180px'}} src={student?.pic} />
+                <Avatar style={{width:'200px',height:'200px',border:"2px solid rgb(61, 61, 214)"}} src={student?.pic} />
                     <div className="studentsPage__info">
                         <h1>{student?.username}</h1>
                         <h2>{student?.email}</h2>
                         <h3>{student?.role}</h3>
+                        <button onClick={handleOpen} >Edit {student?.username}'s Profile</button>
                     </div>
             </div>
             <div className="studentsPage__subjects">
@@ -79,6 +170,14 @@ function StudentsPage() {
                 )
             })}
             </div>
+                 <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+             >
+                {body}
+            </Modal>
         </div>
     )
 }

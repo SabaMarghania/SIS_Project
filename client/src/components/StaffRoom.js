@@ -33,6 +33,11 @@ function StaffRoom() {
         {
             userInfo?.role === "Lecturer" ? (
             <div className='staffroom'>
+               <div className="staffroom__title">
+                    <h1>Students</h1>
+                </div>
+                <div className="staffroom__container">
+              
             {students?.map((student)=>{
                 return (
                     <div key={student._id} className='staffroom__cont'>
@@ -49,7 +54,9 @@ function StaffRoom() {
                 )
             })}
         
-        </div>)
+        </div>
+        </div>
+        )
         :
         (
         <div className='auth'>

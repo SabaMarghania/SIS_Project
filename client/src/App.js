@@ -16,7 +16,7 @@ import Register from './components/Register';
 import {  useSelector } from "react-redux";
 import StudentsPage from './components/StudentsPage';
 import Profile from './components/Profile';
-import Timetable from './components/Timetable';
+import Schedules from './components/Schedules';
 function App() {
 
     
@@ -27,12 +27,12 @@ function App() {
     <Router>
       <Switch>
 
-      <Route path="/timetable">
+      <Route path="/Schedules">
           <Header/>
           <div className="App__main">
             <div className="App__content">
               <Sidebar/>
-              <Timetable />
+              <Schedules />
             </div>
           </div>
           <Footer/>
