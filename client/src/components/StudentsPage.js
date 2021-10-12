@@ -13,14 +13,16 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Avatar from '@material-ui/core/Avatar';
 import './StudentsPage.css'
 import Modal from '@material-ui/core/Modal';
-
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import DelModal from '@mui/material/Modal';
 function StudentsPage() {
     const[student,setStudent]=useState([])
+    const[subjects,setSubjects]=useState([])
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
     let{id}=useParams()
     const [update, setUpdate] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
     const[username,setUsername] = useState('')
     const [open, setOpen] = useState(false);
     const[email,setEmail] = useState('')
@@ -35,6 +37,15 @@ function StudentsPage() {
         setOpen(false);
       };
 
+      const delModalOpen = () => {
+        setDeleteModal(true);
+      };
+      const delModalClose = () => {
+        setDeleteModal(false);
+      };
+  
+
+    // background: dimgray;
       const postDetails = (pics) => {
 
         if (pics.type === "image/jpeg" || pics.type === "image/png"|| pics.type === "image/jpg") {
@@ -60,7 +71,7 @@ function StudentsPage() {
 
 
     useEffect(() => {
-    
+      
       let  flag = true
        axios.get(`http://localhost:3001/student/${id}`, )
            .then((res) => {
@@ -68,7 +79,12 @@ function StudentsPage() {
                 setStudent(res.data);
                }
            })
-       
+          //  axios.get(`http://localhost:3001/subject/${id}`, )
+          //  .then((res) => {
+          //      if (flag) {
+          //       setSubjects(res.data);
+          //      }
+          //  })
       
        return () => flag = false
    }, [])
@@ -94,7 +110,6 @@ function StudentsPage() {
 
   },1200) 
   }
-  console.log("students", birthdate)
    const body = (
     <div className="profile__modal_body">
         <div className="profile__modal__title">
@@ -121,30 +136,55 @@ function StudentsPage() {
    
     </div>
   );
+  const delUser = async () =>{
+  //   setTimeout(()=>{
+  //     window.location.reload()
+
+  // },1200) 
+
+  await axios.delete(`http://localhost:3001/deleteUser/${student._id}`)
+  }
+
+  const delModal = (
+      <div className="deleteModal">
+          <h2>Delete {student?.username}'s account?</h2>
+        <div className="deleteModal__main">
+          <button  onClick={delUser} className='delModal__yes'>Yes</button>
+          <button onClick={delModalClose} className='delModal__no'>No</button>
+          </div>
+        </div>
+    )
+    console.log(id)
     return (
         <div className='studentsPage'>
             <div className="studentsPage__profile">
+           
                 <Avatar style={{width:'200px',height:'200px',border:"2px solid rgb(61, 61, 214)"}} src={student?.pic} />
                     <div className="studentsPage__info">
                         <h1>{student?.username}</h1>
                         <h2>{student?.email}</h2>
                         <h3>{student?.role}</h3>
-                        <button onClick={handleOpen} >Edit {student?.username}'s Profile</button>
+                        <div className="studentPage__AdminMode">
+                          <button onClick={handleOpen} >Edit {student?.username}'s Profile</button>
+                          <button onClick={delModalOpen} ><DeleteIcon style={{color:'white'}} onClick={delModalOpen} /> Delete Student</button>
+                          
+                        </div>
+                            
                     </div>
             </div>
             <div className="studentsPage__subjects">
 
             {student?.subjects?.map((item)=>{
-                return(
-             
+            //  console.log(item)
+             return(
             <div key={item._id}>
     <Accordion className='accordion'>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon style={{color:'#fff'}} />}
+          expandIcon={<ExpandMoreIcon style={{color:'#fff'}}/> }
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography>{item.subject}</Typography>
+          <Typography className='subject__info'>{item.subject} </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -178,6 +218,17 @@ function StudentsPage() {
              >
                 {body}
             </Modal>
+
+        <div>
+        <DelModal
+        open={deleteModal}
+        onClose={delModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        {delModal}
+      </DelModal>
+        </div>
         </div>
     )
 }

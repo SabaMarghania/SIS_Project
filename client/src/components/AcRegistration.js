@@ -7,13 +7,11 @@ function AcRegistration() {
 
       const[credit,setCredit]=useState(30)
       const[subject,setSubjects]=useState([])
-      const[counts,setCounts]=useState([])
       const[lecturer,setLecturers]=useState('')
       const[load,setLoad]=useState(false)
       const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
       useEffect(() => {
-    
       let  flag = true
        axios.get(`http://localhost:3001/student/${userInfo?._id}`, )
            .then((res) => {
@@ -21,13 +19,14 @@ function AcRegistration() {
                 setSubjects(res.data);
                }
            })
+
+      
            setTimeout(()=>{
              setLoad(false)
            },700)
       
        return () => flag = false
    }, [load])
-
 const itemAdd = async(subjectCredit,subject,lecturers,schedule)=>{
   setLoad(true)
   if(credit <= 4){

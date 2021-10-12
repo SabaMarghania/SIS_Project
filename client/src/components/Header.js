@@ -39,7 +39,6 @@ function Header() {
 
         return () => flag = false
     },[history,userInfo])
-    console.log(student)
     return (
         <div className='header'>
             <div className="header__left">

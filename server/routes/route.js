@@ -152,5 +152,10 @@ router.put('/editProfile/:id', (req,res)=>{
     res.status(200).send("Picture has been updated")
 
   })
-
+  router.delete('/deleteUser/:id',async (req,res)=>{
+    const id = req.params.id;
+    await Student.findByIdAndDelete(id).exec();
+    res.status(200).send("User Deleted");
+    console.log("Success")
+  })
 module.exports = router   
