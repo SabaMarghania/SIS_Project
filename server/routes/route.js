@@ -1,5 +1,6 @@
 const StudentModel = require("../models/student")
 const SubjectModel = require("../models/subjects")
+const MarkModel = require("../models/marks")
 const express = require ("express");
 const router = express.Router();
 const { 
@@ -55,7 +56,28 @@ router.get("/student/:id", async (req, res) =>{
  
   })
   
+//   studentMarks
+router.post('/studentMarks',async (req, res) =>{
+    const markDb = new MarkModel({
+        student:req.body.student,
+        subject:req.body.subject,
+        activity:req.body.activity,
+        quiz:req.body.quiz,
+        midterm:req.body.midterm,
+        final:req.body.final,
+        totalMark:req.body.totalMark,
+      });
 
+    marks = await markDb.save();
+
+    if(!marks) 
+    return res.status(500).send('The marks cannot be created')
+
+    // console.log(product);
+
+   
+
+})
 router.post('/subject',async (req, res) =>{
     console.log(req.body.schedule)
     const subjectDb = new Subject({

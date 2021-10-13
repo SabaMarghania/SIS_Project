@@ -17,12 +17,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DelModal from '@mui/material/Modal';
 function StudentsPage() {
     const[student,setStudent]=useState([])
-    const[subjects,setSubjects]=useState([])
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
     let{id}=useParams()
     const [update, setUpdate] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+    const [pointsModal, setPointsModal] = useState(false);
     const[username,setUsername] = useState('')
     const [open, setOpen] = useState(false);
     const[email,setEmail] = useState('')
@@ -30,6 +30,13 @@ function StudentsPage() {
     const [pic, setPic] = useState(
       "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
     );
+    const[options,setOptions] = useState('')
+    const[activityPoint,setActivityPoint] = useState(0)
+    const[quizPoint,setQuizPoint] = useState(0)
+    const[midtermPoint,setMidtermPoint] = useState(0)
+    const[finalPoint,setFinalPoint] = useState(0)
+    const[total,setTotal] = useState(0)
+
     const handleOpen = () => {
         setOpen(true);
       };
@@ -44,8 +51,13 @@ function StudentsPage() {
         setDeleteModal(false);
       };
   
-
-    // background: dimgray;
+      const pointsModalOpen = () => {
+        setPointsModal(true);
+      };
+      const pointsModalClose = () => {
+        setPointsModal(false);
+      };
+  
       const postDetails = (pics) => {
 
         if (pics.type === "image/jpeg" || pics.type === "image/png"|| pics.type === "image/jpg") {
@@ -79,12 +91,7 @@ function StudentsPage() {
                 setStudent(res.data);
                }
            })
-          //  axios.get(`http://localhost:3001/subject/${id}`, )
-          //  .then((res) => {
-          //      if (flag) {
-          //       setSubjects(res.data);
-          //      }
-          //  })
+    
       
        return () => flag = false
    }, [])
@@ -137,13 +144,73 @@ function StudentsPage() {
     </div>
   );
   const delUser = async () =>{
-  //   setTimeout(()=>{
-  //     window.location.reload()
+    setTimeout(()=>{
+      window.location.reload()
 
-  // },1200) 
+  },1200) 
 
   await axios.delete(`http://localhost:3001/deleteUser/${student._id}`)
   }
+
+
+  const handlePoints = async()=>{
+    setTotal(parseInt(activityPoint)+parseInt(quizPoint)+parseInt(midtermPoint)+parseInt(finalPoint))
+
+    console.log(total)
+    console.log(student?.username)
+  await axios.post(`http://localhost:3001/studentMarks`,{
+    student:student?.username,
+    subject:options,
+    activity:activityPoint,
+    quiz:quizPoint,
+    midterm:midtermPoint,
+    final:finalPoint,
+    totalMark:total,
+  })
+
+  }
+
+  const givePoints = (
+    <div className="pointsModal">
+      <div className="pointsModal__title">
+        <h1>Student rate</h1>
+      </div>
+      <div className="pointsModal__options__cont">
+        <div className="pointsModal__box">
+          <h3>Choose a subject</h3>
+          <select onChange={(e)=>{setOptions(e.target.value)}}  className="pointsModal__select">
+            <option value="">None</option>
+          {student?.subjects?.map((item)=>{
+            //  console.log(item.subject)
+             return(
+              <option key={item._id} value={item.subject}>{item.subject}</option>
+                )
+            })}
+          </select>
+        {/* {  console.log(options, activityPoint,quizPoint,midtermPoint,finalPoint)} */}
+        </div>
+            <div className="pointsModal__box">
+              <h3>Activity</h3>
+              <input onChange={(e)=>{setActivityPoint(e.target.value)}} value={activityPoint}  type="number"  />
+            </div>
+            <div className="pointsModal__box">
+              <h3>Quiz</h3>
+              <input onChange={(e)=>{setQuizPoint(e.target.value)}} value={quizPoint}  type="number" />
+            </div>
+            <div className="pointsModal__box">
+              <h3>Midterm</h3>
+              <input onChange={(e)=>{setMidtermPoint(e.target.value)}} value={midtermPoint}  type="number" />
+            </div>
+            <div className="pointsModal__box">
+              <h3>Final</h3>
+              <input onChange={(e)=>{setFinalPoint(e.target.value)}} value={finalPoint}  type="number" />
+            </div>
+      </div>
+      <div className="pointsModal__submit">
+        <button onClick={handlePoints}>Save</button>
+      </div>
+    </div>
+  )
 
   const delModal = (
       <div className="deleteModal">
@@ -154,7 +221,7 @@ function StudentsPage() {
           </div>
         </div>
     )
-    console.log(id)
+    // console.log(id)
     return (
         <div className='studentsPage'>
             <div className="studentsPage__profile">
@@ -166,7 +233,8 @@ function StudentsPage() {
                         <h3>{student?.role}</h3>
                         <div className="studentPage__AdminMode">
                           <button onClick={handleOpen} >Edit {student?.username}'s Profile</button>
-                          <button onClick={delModalOpen} ><DeleteIcon style={{color:'white'}} onClick={delModalOpen} /> Delete Student</button>
+                          <button onClick={delModalOpen} ><DeleteIcon style={{color:'white'}} /> Delete Student</button>
+                          <button onClick={pointsModalOpen} >Give points to {student?.username}</button>
                           
                         </div>
                             
@@ -229,6 +297,15 @@ function StudentsPage() {
         {delModal}
       </DelModal>
         </div>
+        <Modal
+                open={pointsModal}
+                onClose={pointsModalClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+             >
+                {givePoints}
+            </Modal>
+
         </div>
     )
 }
