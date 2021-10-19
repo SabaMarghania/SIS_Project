@@ -3,14 +3,13 @@ const { Schema } = mongoose
 
 
 const MarkSchema = new Schema({
-    student: {
-        type: String,
+    // student: {
+    //     type: String,
 
-    },
-    subject: {
-        type: String,
-
-    },
+    // },
+    // subjectId: {
+    //     type: String,
+    // },
     activity: {
         type: Number,
         default: 0
@@ -29,6 +28,9 @@ const MarkSchema = new Schema({
     totalMark:{
         type: Number,
 
+    },
+    userID:{
+        type:String,
     }
 })
 

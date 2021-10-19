@@ -28,6 +28,7 @@ function StaffRoom() {
       
        return () => flag = false
    }, [])
+   console.log(students)
     return (
         <>
         {

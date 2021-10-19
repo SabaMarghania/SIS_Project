@@ -13,7 +13,8 @@ const authPage = require('../middleware/pageauth')
 const parser = require('../middleware/cloudinary.config')
 router.post("/register",registerUser);
 router.post("/login", authUser)
-const moment = require('moment')
+const moment = require('moment');
+const Marks = require("../models/marks");
 
 //get all students data
 router.get('/getStudents', (req,res)=>{
@@ -28,6 +29,16 @@ router.get('/getStudents', (req,res)=>{
 })
 router.get('/subjects', (req,res)=>{
     SubjectModel.find({},(err,result)=>{
+        if(err){
+            res.status(200).send(err);
+        }
+        
+         res.status(200).send(result);
+    })
+    
+})
+router.get('/marks', (req,res)=>{
+    MarkModel.find({},(err,result)=>{
         if(err){
             res.status(200).send(err);
         }
@@ -55,25 +66,39 @@ router.get("/student/:id", async (req, res) =>{
       res.send(subject);
  
   })
+//   router.get("/mark/:id", async (req, res) =>{
+//     const mark = await MarkModel.findOne(req.params.id)
+//       if(!mark) {
+//           res.status(500).json({success: false})
+//       } 
+//       console.log(mark);
+ 
+//   })
   
 //   studentMarks
 router.post('/studentMarks',async (req, res) =>{
-    const markDb = new MarkModel({
-        student:req.body.student,
-        subject:req.body.subject,
-        activity:req.body.activity,
-        quiz:req.body.quiz,
-        midterm:req.body.midterm,
-        final:req.body.final,
-        totalMark:req.body.totalMark,
-      });
+//    const  markDb = await new MarkModel({
+//         activity:req.body.activity,
+//         quiz:req.body.quiz,
+//         midterm:req.body.midterm,
+//         final:req.body.final,
+//         totalMark:req.body.totalMark,
+//       });
+      Student.findOneAndUpdate(
+        { _id: req.body.userID },
+        {$push: {"marks": {activity: req.body.activity,  quiz:req.body.quiz, subjectName:req.body.subjectName, midterm:req.body.midterm,final:req.body.final,totalMark:req.body.totalMark}}},
+        {safe: true, upsert: true},
+        function(err, model) {
+            console.log(err);
+            console.log(model)
+        }
+    );
+    // const marks = await markDb.save();
+        res.status(200).send("")
+    // if(!marks) 
+    // return res.status(500).send('The marks cannot be created')
 
-    marks = await markDb.save();
-
-    if(!marks) 
-    return res.status(500).send('The marks cannot be created')
-
-    // console.log(product);
+    // console.log(marks);
 
    
 

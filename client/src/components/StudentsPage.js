@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import {
     Link,
-    useParams
+    useParams,
+    useHistory
   } from "react-router-dom";
 import axios from 'axios'
 import {useSelector} from 'react-redux'
@@ -17,12 +18,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DelModal from '@mui/material/Modal';
 function StudentsPage() {
     const[student,setStudent]=useState([])
+    const[marks,setMarks]=useState([])
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
     let{id}=useParams()
     const [update, setUpdate] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [pointsModal, setPointsModal] = useState(false);
+    const [showPointsModal, setShowPointsModal] = useState(false);
     const[username,setUsername] = useState('')
     const [open, setOpen] = useState(false);
     const[email,setEmail] = useState('')
@@ -57,7 +60,12 @@ function StudentsPage() {
       const pointsModalClose = () => {
         setPointsModal(false);
       };
-  
+      const showPointsModalOpen = () => {
+        setShowPointsModal(true);
+      };
+      const showPointsModalClose = () => {
+        setShowPointsModal(false);
+      };
       const postDetails = (pics) => {
 
         if (pics.type === "image/jpeg" || pics.type === "image/png"|| pics.type === "image/jpg") {
@@ -91,7 +99,7 @@ function StudentsPage() {
                 setStudent(res.data);
                }
            })
-    
+ 
       
        return () => flag = false
    }, [])
@@ -111,12 +119,12 @@ function StudentsPage() {
     const formData = new FormData();
     formData.append("file", pic)
     await axios.put(`http://localhost:3001/updateStudentsPic/${id}`,formData)
-    console.log(pic)
     setTimeout(()=>{
       window.location.reload()
 
   },1200) 
   }
+  console.log(student)
    const body = (
     <div className="profile__modal_body">
         <div className="profile__modal__title">
@@ -143,24 +151,27 @@ function StudentsPage() {
    
     </div>
   );
+  let history = useHistory()
   const delUser = async () =>{
     setTimeout(()=>{
       window.location.reload()
 
-  },1200) 
+  },1000) 
 
+    history.push("/staff")
   await axios.delete(`http://localhost:3001/deleteUser/${student._id}`)
   }
 
 
   const handlePoints = async()=>{
     setTotal(parseInt(activityPoint)+parseInt(quizPoint)+parseInt(midtermPoint)+parseInt(finalPoint))
-
-    console.log(total)
-    console.log(student?.username)
+    setTimeout(()=>{
+      window.location.reload()
+  
+  },1000) 
   await axios.post(`http://localhost:3001/studentMarks`,{
-    student:student?.username,
-    subject:options,
+    userID:student?._id,
+    subjectName:options,
     activity:activityPoint,
     quiz:quizPoint,
     midterm:midtermPoint,
@@ -169,7 +180,7 @@ function StudentsPage() {
   })
 
   }
-
+console.log(marks)
   const givePoints = (
     <div className="pointsModal">
       <div className="pointsModal__title">
@@ -179,12 +190,13 @@ function StudentsPage() {
         <div className="pointsModal__box">
           <h3>Choose a subject</h3>
           <select onChange={(e)=>{setOptions(e.target.value)}}  className="pointsModal__select">
+      {/* {  console.log(options)} */}
             <option value="">None</option>
           {student?.subjects?.map((item)=>{
-            //  console.log(item.subject)
+            //  console.log(item._id)
              return(
               <option key={item._id} value={item.subject}>{item.subject}</option>
-                )
+              )
             })}
           </select>
         {/* {  console.log(options, activityPoint,quizPoint,midtermPoint,finalPoint)} */}
@@ -221,7 +233,26 @@ function StudentsPage() {
           </div>
         </div>
     )
-    // console.log(id)
+    const marksModal = (
+      <div className="showPointsModal">
+        <div className="showPointsModal__cont">
+        {student?.marks?.map((item)=>{
+             return(
+            <div className='marks' key={item._id}>
+   
+              <h3> {item.subjectName}</h3>
+              <p>Activity: {item.activity}</p>
+              <p>Quiz: {item.quiz}</p>
+              <p>Midterm: {item.midterm}</p>
+              <p>Final: {item.final}</p>
+            </div>
+          
+
+                )
+            })}
+          </div>
+        </div>
+    )
     return (
         <div className='studentsPage'>
             <div className="studentsPage__profile">
@@ -235,49 +266,23 @@ function StudentsPage() {
                           <button onClick={handleOpen} >Edit {student?.username}'s Profile</button>
                           <button onClick={delModalOpen} ><DeleteIcon style={{color:'white'}} /> Delete Student</button>
                           <button onClick={pointsModalOpen} >Give points to {student?.username}</button>
+                          <button onClick={showPointsModalOpen} >Show {student?.username}'s points</button>
                           
                         </div>
                             
                     </div>
             </div>
-            <div className="studentsPage__subjects">
-
-            {student?.subjects?.map((item)=>{
-            //  console.log(item)
-             return(
-            <div key={item._id}>
-    <Accordion className='accordion'>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon style={{color:'#fff'}}/> }
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography className='subject__info'>{item.subject} </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Activity: 20
-          </Typography>
-          <Typography>
-            Quiz: 10
-          </Typography>
-          <Typography>
-            Midterm: 15
-          </Typography>
-          <Typography>
-            FinalExam: 30
-          </Typography>
-          <Typography style={{color:"#fff"}}>
-            Overall: 75
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-            </div>
           
-
+            <div className="studentsPage__subjects">
+            {student?.subjects?.map((item)=>{
+             return(
+              <div className='students__subjects' key={item._id}>
+                <h4 >{item.subject}</h4>
+             </div>
                 )
             })}
             </div>
+
                  <Modal
                 open={open}
                 onClose={handleClose}
@@ -304,6 +309,15 @@ function StudentsPage() {
                 aria-describedby="simple-modal-description"
              >
                 {givePoints}
+            </Modal>
+
+            <Modal
+                open={showPointsModal}
+                onClose={showPointsModalClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+             >
+                {marksModal}
             </Modal>
 
         </div>

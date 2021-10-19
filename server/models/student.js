@@ -30,6 +30,30 @@ const StudentSchema = mongoose.Schema({
             type:String,
         }
     }],
+    marks:[{
+        subjectName:{
+            type:String,
+        },
+        activity: {
+            type: Number,
+            default: 0
+        },
+        quiz: {
+            type: Number,
+            default: 0
+        },
+        midterm: {
+            type: Number,
+            default: 0
+        },
+        final: {
+            type: Number,
+        },
+        totalMark:{
+            type: Number,
+    
+        }
+    }],
     password: {
         type: String,
         required: true,
