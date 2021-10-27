@@ -6,11 +6,6 @@ import {
   } from "react-router-dom";
 import axios from 'axios'
 import {useSelector} from 'react-redux'
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Avatar from '@material-ui/core/Avatar';
 import './StudentsPage.css'
 import Modal from '@material-ui/core/Modal';
@@ -180,7 +175,6 @@ function StudentsPage() {
   })
 
   }
-console.log(marks)
   const givePoints = (
     <div className="pointsModal">
       <div className="pointsModal__title">
@@ -190,16 +184,13 @@ console.log(marks)
         <div className="pointsModal__box">
           <h3>Choose a subject</h3>
           <select onChange={(e)=>{setOptions(e.target.value)}}  className="pointsModal__select">
-      {/* {  console.log(options)} */}
             <option value="">None</option>
           {student?.subjects?.map((item)=>{
-            //  console.log(item._id)
              return(
               <option key={item._id} value={item.subject}>{item.subject}</option>
               )
             })}
           </select>
-        {/* {  console.log(options, activityPoint,quizPoint,midtermPoint,finalPoint)} */}
         </div>
             <div className="pointsModal__box">
               <h3>Activity</h3>

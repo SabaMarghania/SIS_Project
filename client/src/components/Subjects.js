@@ -16,50 +16,50 @@ function Subjects() {
     <th>ECTS/Point</th>
   </tr>
   <tr>
-    <td>Alfreds Futterkiste</td>
+    <td>Computer skills	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
   <tr>
-    <td>Centro comercial Moctezuma</td>
+    <td>Computer Architect	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
   <tr>
-    <td>Ernst Handel</td>
+    <td>Python</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
   <tr>
-    <td>Island Trading</td>
+    <td>HTML and CSS	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
   <tr>
-    <td>Laughing Bacchus Winecellars</td>
+    <td>Academic writing	</td>
+    <td>core subject</td>
+    <td>4.0 / -</td>
+  </tr>
+  <tr>
+    <td>English language B1.1	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
   <tr>
-    <td>Laughing Bacchus Winecellars</td>
-    <td>core subject</td>
-    <td>5.0 / -</td>
-  </tr>
-  <tr>
-    <td>Laughing Bacchus Winecellars</td>
+    <td>English language B1.2	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>  
   <tr>
-    <td>Laughing Bacchus Winecellars</td>
+    <td>English language B2.1	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
 
   <tr>
-    <td>Magazzini Alimentari Riuniti</td>
+    <td>English language B2.2	</td>
     <td>core subject</td>
-    <td>5.0 / -</td>
+    <td>6.0 / -</td>
   </tr>
 
   <tr>
@@ -71,37 +71,37 @@ function Subjects() {
     <th>ECTS/Point</th>
   </tr>
   <tr>
-    <td>Alfreds Futterkiste</td>
+    <td>AutoCad</td>
+    <td>core subject</td>
+    <td>6.0 / -</td>
+  </tr>
+  <tr>
+    <td>PhotoShop	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
   <tr>
-    <td>Centro comercial Moctezuma</td>
+    <td>Physics	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
   <tr>
-    <td>Ernst Handel</td>
+    <td>.NET Programming	</td>
     <td>core subject</td>
     <td>5.0 / -</td>
   </tr>
   <tr>
-    <td>Alfreds Futterkiste</td>
+    <td>.NET Programming 2	</td>
     <td>core subject</td>
-    <td>5.0 / -</td>
+    <td>4.0 / -</td>
   </tr>
   <tr>
-    <td>Centro comercial Moctezuma</td>
+    <td>ArchiCad</td>
     <td>core subject</td>
-    <td>5.0 / -</td>
+    <td>4.0 / -</td>
   </tr>
   <tr>
-    <td>Ernst Handel</td>
-    <td>core subject</td>
-    <td>5.0 / -</td>
-  </tr>
-  <tr>
-    <th className='title'>Minor Courses</th>
+    <th className='title'>Final Project</th>
   </tr>
   <tr>
     <th>Study Course</th>
@@ -109,20 +109,16 @@ function Subjects() {
     <th>ECTS/Point</th>
   </tr>
   <tr>
-    <td>Alfreds Futterkiste</td>
+    <td>Practice</td>
     <td>core subject</td>
-    <td>5.0 / -</td>
+    <td>10.0 / -</td>
   </tr>
   <tr>
-    <td>Centro comercial Moctezuma</td>
+    <td>Bachelor Final Project	</td>
     <td>core subject</td>
-    <td>5.0 / -</td>
+    <td>15.0 / -</td>
   </tr>
-  <tr>
-    <td>Ernst Handel</td>
-    <td>core subject</td>
-    <td>5.0 / -</td>
-  </tr>
+
     </tbody>
 
 </table>
