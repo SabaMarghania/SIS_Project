@@ -132,34 +132,22 @@ function Profile() {
                     return(
                  
                 <div key={item._id}>
-        <Accordion className='accordion'>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon style={{color:'#fff'}} />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>{item.subject}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Activity: 20
-              </Typography>
-              <Typography>
-                Quiz: 10
-              </Typography>
-              <Typography>
-                Midterm: 15
-              </Typography>
-              <Typography>
-                FinalExam: 30
-              </Typography>
-              <Typography style={{color:"#fff"}}>
-                Overall: 75
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-                </div>
-              
+       <Accordion className='accordion'>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon style={{color:'#fff'}} />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography>{item.subject}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography className="text">
+            {item.schedule}
+          </Typography>
+         
+        </AccordionDetails>
+      </Accordion>
+              </div>
     
                     )
                 })}

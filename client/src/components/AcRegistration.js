@@ -38,7 +38,7 @@ const itemAdd = async(subjectCredit,subject,lecturers,schedule)=>{
     setCredit(credit - subjectCredit)
   
   await axios.post("http://localhost:3001/subject",{
-    userId:userInfo?._id,
+    userId:userInfo._id,
     subject:subject,
     lecturer:lecturers,
     subjectCredit:subjectCredit,

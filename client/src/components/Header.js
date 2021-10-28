@@ -21,6 +21,10 @@ function Header() {
     let dispatch = useDispatch()
     const logoutHandler = () => {
       dispatch(logout());
+    //   setTimeout(()=>{
+    //     window.location.reload()
+    
+    // },1000) 
     };
 
 
@@ -39,6 +43,7 @@ function Header() {
 
         return () => flag = false
     },[history,userInfo])
+    console.log(userInfo)
     return (
         <div className='header'>
             <div className="header__left">

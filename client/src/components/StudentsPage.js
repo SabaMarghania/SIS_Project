@@ -154,7 +154,7 @@ function StudentsPage() {
   },1000) 
 
     history.push("/staff")
-  await axios.delete(`http://localhost:3001/deleteUser/${student._id}`)
+  await axios.delete(`http://localhost:3001/deleteUser/${student?._id}`)
   }
 
 
@@ -165,7 +165,7 @@ function StudentsPage() {
   
   },1000) 
   await axios.post(`http://localhost:3001/studentMarks`,{
-    userID:student?._id,
+    userID:student._id,
     subjectName:options,
     activity:activityPoint,
     quiz:quizPoint,

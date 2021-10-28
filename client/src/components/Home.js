@@ -17,17 +17,16 @@ function Home() {
       setPointsModal(false);
     };
 
-    useEffect(() => {
+    useEffect(async() => {
     
       let  flag = true
-       axios.get(`http://localhost:3001/student/${userInfo?._id}`, )
+      await axios.get(`http://localhost:3001/student/${userInfo?._id}`, )
            .then((res) => {
                if (flag) {
                 setStudent(res.data);
                }
            })
        
-      
        return () => flag = false
    }, [])
 
@@ -36,13 +35,13 @@ function Home() {
       <div className="showPointsModal__cont">
       {Student?.marks?.map((item)=>{
            return(
-          <div className='marks' key={item._id}>
+          <div className='marks' key={item?._id}>
  
-            <h3> {item.subjectName}</h3>
-            <p>Activity: {item.activity}</p>
-            <p>Quiz: {item.quiz}</p>
-            <p>Midterm: {item.midterm}</p>
-            <p>Final: {item.final}</p>
+            <h3> {item?.subjectName}</h3>
+            <p>Activity: {item?.activity}</p>
+            <p>Quiz: {item?.quiz}</p>
+            <p>Midterm: {item?.midterm}</p>
+            <p>Final: {item?.final}</p>
           </div>
         
 
@@ -56,8 +55,6 @@ function Home() {
 
     return (
         <div className='home'>
-        {console.log(Student)}
-       
                 <div className="home__top">
                     <h2>Learning Course</h2>
                     <button onClick={pointsModalOpen} >Show your marks</button>
@@ -65,8 +62,8 @@ function Home() {
             </div>
             {Student.subjects?.map((item)=>{
              return(
-              <div className='students__subjects' key={item._id}>
-                <h4 >{item.subject}</h4>
+              <div className='students__subjects' key={item?._id}>
+                <h4 >{item?.subject}</h4>
              </div>
                 )
             })}

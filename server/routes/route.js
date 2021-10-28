@@ -15,6 +15,8 @@ router.post("/register",registerUser);
 router.post("/login", authUser)
 const moment = require('moment');
 const Marks = require("../models/marks");
+const mongoose = require('mongoose');
+
 
 //get all students data
 router.get('/getStudents', (req,res)=>{
@@ -49,43 +51,30 @@ router.get('/marks', (req,res)=>{
 })
 
 
-router.get(`/students`, async (req, res) =>{
-    StudentModel.find({}).sort({_id: -1}).limit(1).then((item) => {
-        res.status(200).send(item)
-       })
-    
- 
-   
-   })
  
 router.get("/student/:id", async (req, res) =>{
-    const subject = await Student.findById(req.params.id)
-      if(!subject) {
-          res.status(500).json({success: false})
-      } 
-      res.send(subject);
- 
+    try{
+        const student = await Student.findById({_id: req.params.id})
+        if( !mongoose.Types.ObjectId.isValid(req.params.id) ) {
+            res.send("ERRROR")
+        };
+    
+        res.status(200).send(student);
+    }catch(err){
+        console.log(err)
+    }
+    
+
+   
   })
-//   router.get("/mark/:id", async (req, res) =>{
-//     const mark = await MarkModel.findOne(req.params.id)
-//       if(!mark) {
-//           res.status(500).json({success: false})
-//       } 
-//       console.log(mark);
- 
-//   })
-  
+
 //   studentMarks
 router.post('/studentMarks',async (req, res) =>{
-//    const  markDb = await new MarkModel({
-//         activity:req.body.activity,
-//         quiz:req.body.quiz,
-//         midterm:req.body.midterm,
-//         final:req.body.final,
-//         totalMark:req.body.totalMark,
-//       });
+    const { ObjectId } = mongoose.Types;
+//
+
       Student.findOneAndUpdate(
-        { _id: req.body.userID },
+        { _id: ObjectId(userID )},
         {$push: {"marks": {activity: req.body.activity,  quiz:req.body.quiz, subjectName:req.body.subjectName, midterm:req.body.midterm,final:req.body.final,totalMark:req.body.totalMark}}},
         {safe: true, upsert: true},
         function(err, model) {
@@ -93,12 +82,8 @@ router.post('/studentMarks',async (req, res) =>{
             console.log(model)
         }
     );
-    // const marks = await markDb.save();
-        res.status(200).send("")
-    // if(!marks) 
-    // return res.status(500).send('The marks cannot be created')
+        res.status(200).send("Marks pushed")
 
-    // console.log(marks);
 
    
 
@@ -110,12 +95,13 @@ router.post('/subject',async (req, res) =>{
         subject:req.body.subject,
         lecturer:req.body.lecturer,
         subjectCredit:req.body.subjectCredit,
-        userId:req.body.userId,
+        userId:req.body?.userId,
         schedule:req.body.schedule,
       });
+      const { ObjectId } = mongoose.Types;
  
     Student.findOneAndUpdate(
-        { _id: req.body.userId },
+        { _id: ObjectId(userId ) },
         {$push: {"subjects": {subject: req.body.subject, lecturer:req.body.lecturer,subjectCredit:req.body.subjectCredit,userId:req.body.userId,schedule:req.body.schedule}}},
         {safe: true, upsert: true},
         function(err, model) {
