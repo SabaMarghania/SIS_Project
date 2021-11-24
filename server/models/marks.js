@@ -3,13 +3,7 @@ const { Schema } = mongoose
 
 
 const MarkSchema = new Schema({
-    // student: {
-    //     type: String,
 
-    // },
-    // subjectId: {
-    //     type: String,
-    // },
     activity: {
         type: Number,
         default: 0
